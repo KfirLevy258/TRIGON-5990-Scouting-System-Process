@@ -20,37 +20,39 @@ db = firestore.client()
 response = requests.get(defaultURL + askFotTeamsInDe1, headers = {header: headerKey})
 json_obj = json.loads(response.content)
 
-def uploadScoutresTaskes():
-    listOfUsers = [u'1C3f85SNrDMOZVTkssdXdd7NkVV2', u'Odi2opRmUHbhXuw3pbNIVqN5opp1', u'KuafUEj5Maa1CkVikFSLV5NNI2L2']
+#
+# def uploadScoutresTaskes():
+#     listOfUsers = [u'1C3f85SNrDMOZVTkssdXdd7NkVV2', u'Odi2opRmUHbhXuw3pbNIVqN5opp1', u'KuafUEj5Maa1CkVikFSLV5NNI2L2']
+#
+#     for m in range(len(listOfUsers)):
+#         db.collection(u'users').document(listOfUsers[m]) \
+#             .collection(u'tournaments').document(u'ISRD' + str(num)).set({
+#         })
+#
+#         for i in range(len(json_obj)):
+#             if str(json_obj[i][u'comp_level']) == (u'qm'):
+#                 match_number = json_obj[i][u'match_number']
+#                 teamToScout = str(json_obj[i][u'alliances'][u'red'][u'team_keys'][m]).split(u'frc')
+#                 db.collection(u'users').document(listOfUsers[m]) \
+#                     .collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'gamesToScout') \
+#                     .document(str(match_number)).set({
+#                     u'teamNumber': teamToScout[1],
+#                     u'saved': False
+#                 })
+#
+# print json_obj
+# listD1 = []
+# for i in range(len(json_obj)):
+#     print json_obj[i]["team_number"]
+#     listD1.append(json_obj[i]["team_number"])
+#
+# eventKey = u'2020isde'
+# num = raw_input('enter ditrict number \n')
+# askFotTeamsInDe1 =  '/event/'
+# defaultURL = 'https://www.thebluealliance.com/api/v3'
+# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/teams"
+# print askFotTeamsInDe1
 
-    for m in range(len(listOfUsers)):
-        db.collection(u'users').document(listOfUsers[m]) \
-            .collection(u'tournaments').document(u'ISRD' + str(num)).set({
-        })
-
-        for i in range(len(json_obj)):
-            if str(json_obj[i][u'comp_level']) == (u'qm'):
-                match_number = json_obj[i][u'match_number']
-                teamToScout = str(json_obj[i][u'alliances'][u'red'][u'team_keys'][m]).split(u'frc')
-                db.collection(u'users').document(listOfUsers[m]) \
-                    .collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'gamesToScout') \
-                    .document(str(match_number)).set({
-                    u'teamNumber': teamToScout[1],
-                    u'saved': False
-                })
-
-print json_obj
-listD1 = []
-for i in range(len(json_obj)):
-    print json_obj[i]["team_number"]
-    listD1.append(json_obj[i]["team_number"])
-
-eventKey = u'2020isde'
-num = raw_input('enter ditrict number \n')
-askFotTeamsInDe1 =  '/event/'
-defaultURL = 'https://www.thebluealliance.com/api/v3'
-askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/teams"
-print askFotTeamsInDe1
 # askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/matches/simple"
 #
 # print defaultURL + askFotTeamsInDe1
@@ -94,18 +96,18 @@ print askFotTeamsInDe1
 
 # collection(u'gamesToScout').document(x)
 
-# for i in range(len(json_obj)):
-#     team_number = json_obj[i]["team_number"]
-#     team_name = json_obj[i]["nickname"]
-#
-#     db.collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'teams').document(str(team_number)).set({
-#         u'team_name': team_name,
-#         u'pit_scouting_saved': False
-#     })
-#     db.collection(u'tournaments').document(u'ISRD'  + str(num)).collection(u'teams').document(str(team_number)).collection(u'superScouting')
-#     db.collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'teams').document(str(team_number)).collection(u'scouting')
-#
-#
+for i in range(len(json_obj)):
+    team_number = json_obj[i]["team_number"]
+    team_name = json_obj[i]["nickname"]
+
+    db.collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'teams').document(str(team_number)).set({
+        u'team_name': team_name,
+        u'pit_scouting_saved': False
+    })
+    db.collection(u'tournaments').document(u'ISRD'  + str(num)).collection(u'teams').document(str(team_number)).collection(u'superScouting')
+    db.collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'teams').document(str(team_number)).collection(u'scouting')
+
+
 #
 #     # print str(team_number) + ' - ' + str(team_name)
 #

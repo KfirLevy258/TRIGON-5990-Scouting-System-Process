@@ -3,26 +3,21 @@ from firebase_admin import credentials, firestore
 import requests
 import json
 
-def get_chassis_overall_strength(team_data):
-    wheelDiameter = team_data.get(u'Pit_scouting').get(u'Chassis Overall Strength').get(u'Wheel Diameter')
-    DTMotorType = team_data.get(u'Pit_scouting').get(u'Chassis Overall Strength').get(u'DT Motor type')
-    conversionRatio = team_data.get(u'Pit_scouting').get(u'Chassis Overall Strength').get(u'Conversion Ratio')
-    conversionRatio = str(conversionRatio).split(u'/')
-    conversionRatio = float(conversionRatio[0])/float(conversionRatio[1])
-    # to do - return real value
-    print wheelDiameter
-    print conversionRatio
-    return DTMotorType
+eventKey = u'2019isde'
+# eventKey = u'2019iscmp'
 
 def get_api_data(num):
     defaultURL = 'https://www.thebluealliance.com/api/v3'
     askFotTeamsInDe1 = '/event/'
-    eventKey = u'2019isde'
     header = 'X-TBA-Auth-Key'
     headerKey = 'ptM95D6SCcHO95D97GLFStGb4cWyxtBKNOI9FX5QmBirDnjebphZAEpPcwXNr4vH'
 
-    askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/teams"
+    if (eventKey == u'2019iscmp'):
+        askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + "/teams"
+    else :
+        askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/teams"
 
+    print defaultURL + askFotTeamsInDe1
     response = requests.get(defaultURL + askFotTeamsInDe1, headers={header: headerKey})
     json_obj = json.loads(response.content)
     return json_obj
@@ -31,22 +26,11 @@ cred = credentials.Certificate('./ServiceAccountKey.json',)
 default_app = firebase_admin.initialize_app(cred)
 database = firestore.client()
 
-# teamNumber = raw_input('Enter team number: ')
-# districtNumber = raw_input('Enter district number: ')
-districtNumber = 3
-teamNumber = 1574
-
-teamData = database.collection(u'tournaments').document(u'ISRD' + str(districtNumber)).collection(u'teams')\
-    .document(str(teamNumber)).get()
-
-
-# get_chassis_overall_strength(teamData)
-
 num = raw_input('enter ditrict number \n')
 json_obj = get_api_data(num)
 
 database.collection(u'tournaments').document(u'ISRD' + str(num)).set({
-    u'event_key': u'2019isde' + num
+    u'event_key': eventKey + num
 })
 
 for i in range(len(json_obj)):
