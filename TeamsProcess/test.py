@@ -22,10 +22,10 @@ json_obj = json.loads(response.content)
 
 #
 # def uploadScoutresTaskes():
-#     listOfUsers = [u'1C3f85SNrDMOZVTkssdXdd7NkVV2', u'Odi2opRmUHbhXuw3pbNIVqN5opp1', u'KuafUEj5Maa1CkVikFSLV5NNI2L2']
+#     listOfUsersRed = [u'1C3f85SNrDMOZVTkssdXdd7NkVV2', u'Odi2opRmUHbhXuw3pbNIVqN5opp1', u'KuafUEj5Maa1CkVikFSLV5NNI2L2']
 #
-#     for m in range(len(listOfUsers)):
-#         db.collection(u'users').document(listOfUsers[m]) \
+#     for m in range(len(listOfUsersRed)):
+#         db.collection(u'users').document(listOfUsersRed[m]) \
 #             .collection(u'tournaments').document(u'ISRD' + str(num)).set({
 #         })
 #
@@ -33,7 +33,7 @@ json_obj = json.loads(response.content)
 #             if str(json_obj[i][u'comp_level']) == (u'qm'):
 #                 match_number = json_obj[i][u'match_number']
 #                 teamToScout = str(json_obj[i][u'alliances'][u'red'][u'team_keys'][m]).split(u'frc')
-#                 db.collection(u'users').document(listOfUsers[m]) \
+#                 db.collection(u'users').document(listOfUsersRed[m]) \
 #                     .collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'gamesToScout') \
 #                     .document(str(match_number)).set({
 #                     u'teamNumber': teamToScout[1],
