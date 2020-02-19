@@ -38,6 +38,19 @@ def get_quals_data(listToGetFrom):
             listOfQuals.append(Match(json[counter]))
     return listOfQuals
 
+def upload_task(userId, district, teamNumber, allianceColor, matchNumber):
+    if int(matchNumber) < 10:
+        matchNumber = u'0' + str(matchNumber)
+    database.collection(u'users').document(userId) \
+            .collection(u'tournaments').document(district).set({})
+    database.collection(u'users').document(userId) \
+            .collection(u'tournaments').document(district).collection(u'gamesToScout').\
+                document(str(matchNumber)).set({
+        u'allianceColor': allianceColor,
+        u'saved': False,
+        u'teamNumber': teamNumber
+    })
+
 class Match:
     matchNumber = 0
     teamsInQual = []
@@ -61,79 +74,34 @@ database = firestore.client()
 
 district_number = raw_input('enter ditrict number \n')
 
-# json = get_api_data(district_number, "/matches/simple")
-# json_obj = get_api_data(district_number, "/teams")
-# teamList = get_teams_list(json_obj)
+#
 #
 # print (len(teamList) / float(get_users_amount())) # teams for each scouter
 
 scouters = get_users_list()
-print scouters
 json = get_api_data(district_number, "/matches/simple")
 matches = get_quals_data(json)
+matches.sort(key=lambda x: x.matchNumber)
 
-# firstShift = True
-# for i in range(len(matches)):
-#     for m in range(len(scouters/2)):
-#         if firstShift:
-#             print
-# for m in range(len(listOfUsersBlue)):
-#
-#
-#
-#     for k in range(len(listOfUsersBlue[m])):
-#         # database.collection(u'users').document(listOfUsersRed[m][i]) \
-#         #     .collection(u'tournaments').document(u'ISRD' + str(districtNumber)).set({
-#         #
-#         # })
-#         database.collection(u'users').document(listOfUsersBlue[m][k]) \
-#             .collection(u'tournaments').document(u'PreSeason').set({
-#
-#         })
-#
-#         for i in range(len(json)):
-#             if str(json[i][u'comp_level']) == (u'qm'):
-#                 match_number = str(json[i][u'match_number'])
-#                 if int(match_number) < 10:
-#                     match_number = u'0' + str(match_number)
-#                 teamToScout = str(json[i][u'alliances'][u'blue'][u'team_keys'][m]).split(u'frc')
-#                 database.collection(u'users').document(listOfUsersBlue[m][k]) \
-#                     .collection(u'tournaments').document(u'PreSeason').collection(u'gamesToScout') \
-#                     .document(str(match_number)).set({
-#                     u'teamNumber': teamToScout[1],
-#                     u'saved': False,
-#                     u'allianceColor': u'blue'
-#                 })
+firstShiftList = scouters[:(len(scouters)/2)]
+secondShiftList = scouters[(len(scouters)/2):]
 
-#
-# listOfUsersRed = [[u'5Aevkki6QpRN0xChGv3xTfnA4h32', u'DQ7F7tXIoLVJeqWmnYlzPFBO0Xw2', u'G2d1Lb83TDQgqoVhSV3i9I9yVTN2'],
-#                   [u'J5xfo4x0SIToqKYX8rG9IbhQScJ3', u'K6nH9JzzrobSg0vhxC6a8Hk0pIG3', u'KuafUEj5Maa1CkVikFSLV5NNI2L2'],
-#                   [u'NyBLGLTeQzXVPnc09qqnuywq9iy2', u'PbokaHDPzHdqvd323o7JMw5bETF2', u'VUXysa3cnGeuIqTRWRCbsgljX062']]
-# listOfUsersBlue = [[u'YH7wXhrgkgM2ZeVwqoQ4kH1C87o1', u'bZtYnZv7IOUe9s6xXQ8eG74CsUr1', u'dOC7jFDcyPNtsVpRoqb3vm4QssJ2'],
-#                   [u'gJWkTZD9adZclSGez0Lw6ms4d3w2', u'ilk7QtgVjuR3VF35RWYiLTNex853', u'q6kLtZncQZcOgWQ2T9zRIUECqFk1'],
-#                   [u'vui79lCDT5NtzI4uGNb9M0N6q983', u'wIXqPpF1tlbbBmsnHElCn8lEgwm2', u'yESKrNoKcNZYOZ7cjFgbfcJ8QvL2']]
+firstShift = False
+for i in range(len(matches)):
+    if (i % restTime == 0):
+        firstShift = not firstShift
+        print str(i) + u' matches loaded'
+    if firstShift:
+        for m in range(len(firstShiftList)):
+            upload_task(firstShiftList[m][u'uid'], u'ISRD' + district_number, matches[i].teamsInQual[m][u'teamNumber'],
+                        matches[i].teamsInQual[m][u'allianceColor'], matches[i].matchNumber)
+    else:
+        for m in range(len(secondShiftList)):
+            upload_task(secondShiftList[m][u'uid'], u'ISRD' + district_number, matches[i].teamsInQual[m][u'teamNumber'],
+                        matches[i].teamsInQual[m][u'allianceColor'], matches[i].matchNumber)
+print u'all matches loaded (' + str(len(matches)) + u'matches)'
 
-# for m in range(len(listOfUsersRed)):
-#     for k in range(len(listOfUsersRed[m])):
-#         # database.collection(u'users').document(listOfUsersRed[m][i]) \
-#         #     .collection(u'tournaments').document(u'ISRD' + str(districtNumber)).set({
-#         #
-#         # })
-#         database.collection(u'users').document(listOfUsersRed[m][k]) \
-#             .collection(u'tournaments').document(u'PreSeason').set({
+# json_obj = get_api_data(district_number, "/teams")
+# teamList = get_teams_list(json_obj)
+# for i in range(len(teamList)):
 #
-#         })
-#
-#         for i in range(len(json)):
-#             if str(json[i][u'comp_level']) == (u'qm'):
-#                 match_number = str(json[i][u'match_number'])
-#                 if int(match_number) < 10:
-#                     match_number = u'0' + str(match_number)
-#                 teamToScout = str(json[i][u'alliances'][u'red'][u'team_keys'][m]).split(u'frc')
-#                 database.collection(u'users').document(listOfUsersRed[m][k]) \
-#                     .collection(u'tournaments').document(u'PreSeason').collection(u'gamesToScout') \
-#                     .document(str(match_number)).set({
-#                     u'teamNumber': teamToScout[1],
-#                     u'saved': False,
-#                     u'allianceColor': u'red'
-#                 })
