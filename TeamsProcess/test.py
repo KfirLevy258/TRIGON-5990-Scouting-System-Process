@@ -12,7 +12,7 @@ headerKey = 'ptM95D6SCcHO95D97GLFStGb4cWyxtBKNOI9FX5QmBirDnjebphZAEpPcwXNr4vH'
 
 num = raw_input('enter ditrict number \n')
 askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/teams"
-# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/matches/simple"
+# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(districtNumber) + "/matches/simple"
 cred = credentials.Certificate('./ServiceAccountKey.json',)
 default_app = firebase_admin.initialize_app(cred)
 db = firestore.client()
@@ -26,43 +26,43 @@ json_obj = json.loads(response.content)
 #
 #     for m in range(len(listOfUsersRed)):
 #         db.collection(u'users').document(listOfUsersRed[m]) \
-#             .collection(u'tournaments').document(u'ISRD' + str(num)).set({
+#             .collection(u'tournaments').document(u'ISRD' + str(districtNumber)).set({
 #         })
 #
-#         for i in range(len(json_obj)):
-#             if str(json_obj[i][u'comp_level']) == (u'qm'):
-#                 match_number = json_obj[i][u'match_number']
-#                 teamToScout = str(json_obj[i][u'alliances'][u'red'][u'team_keys'][m]).split(u'frc')
+#         for i in range(len(json)):
+#             if str(json[i][u'comp_level']) == (u'qm'):
+#                 match_number = json[i][u'match_number']
+#                 teamToScout = str(json[i][u'alliances'][u'red'][u'team_keys'][m]).split(u'frc')
 #                 db.collection(u'users').document(listOfUsersRed[m]) \
-#                     .collection(u'tournaments').document(u'ISRD' + str(num)).collection(u'gamesToScout') \
+#                     .collection(u'tournaments').document(u'ISRD' + str(districtNumber)).collection(u'gamesToScout') \
 #                     .document(str(match_number)).set({
 #                     u'teamNumber': teamToScout[1],
 #                     u'saved': False
 #                 })
 #
-# print json_obj
+# print json
 # listD1 = []
-# for i in range(len(json_obj)):
-#     print json_obj[i]["team_number"]
-#     listD1.append(json_obj[i]["team_number"])
+# for i in range(len(json)):
+#     print json[i]["team_number"]
+#     listD1.append(json[i]["team_number"])
 #
 # eventKey = u'2020isde'
-# num = raw_input('enter ditrict number \n')
+# districtNumber = raw_input('enter ditrict number \n')
 # askFotTeamsInDe1 =  '/event/'
 # defaultURL = 'https://www.thebluealliance.com/api/v3'
-# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/teams"
+# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(districtNumber) + "/teams"
 # print askFotTeamsInDe1
 
-# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(num) + "/matches/simple"
+# askFotTeamsInDe1 = askFotTeamsInDe1 + eventKey + str(districtNumber) + "/matches/simple"
 #
 # print defaultURL + askFotTeamsInDe1
 # response = requests.get(defaultURL + askFotTeamsInDe1, headers = {header: headerKey})
-# json_obj = json.loads(response.content)
+# json = json.loads(response.content)
 #
 # listD3 = []
-# for i in range(len(json_obj)):
-#     print json_obj[i]["team_number"]
-#     listD3.append(json_obj[i]["team_number"])
+# for i in range(len(json)):
+#     print json[i]["team_number"]
+#     listD3.append(json[i]["team_number"])
 #
 # finalList =[]
 # for i in range(len(listD1)):
@@ -83,18 +83,18 @@ json_obj = json.loads(response.content)
 #     askFotTeamsInDe1 = askFotTeamsInDe1 + str(eventKey) + askFotTeamsInDe2
 #     print defaultURL + askFotTeamsInDe1
 #     response = requests.get(defaultURL + askFotTeamsInDe1, headers={header: headerKey})
-#     json_obj = json.loads(response.content)
+#     json = json.loads(response.content)
 #     print response
-#     print json_obj
+#     print json
 #     count = 0;
-#     for m in range(len(json_obj)):
-#         if json_obj[m][u'award_type'] == 1:
+#     for m in range(len(json)):
+#         if json[m][u'award_type'] == 1:
 #             count = count + 1
 #     if count>5:
 #         finalfinal.append(finalList[i])
 # print finalfinal
 
-# collection(u'gamesToScout').document(x)
+# collection(u'gamesToScout').document(scouters)
 
 for i in range(len(json_obj)):
     team_number = json_obj[i]["team_number"]
@@ -112,7 +112,7 @@ for i in range(len(json_obj)):
 #     # print str(team_number) + ' - ' + str(team_name)
 #
 #
-#     # db.collection(u'tournaments').document(u'ISRD'  + str(num)).collection(u'teams').document(str(team_number)).collection(
+#     # db.collection(u'tournaments').document(u'ISRD'  + str(districtNumber)).collection(u'teams').document(str(team_number)).collection(
 #     #     u'scoutingData').document(u'pitScouting').set({
 #     #     # u'saved': False,
 #     #     # u'Robot Weight': 0,
@@ -130,15 +130,15 @@ for i in range(len(json_obj)):
 
 
 
-# def teamsInQualList(json_obj, keyList):
+# def teamsInQualList(json, keyList):
 #     FinalTeamList = []
-#     for i in range(len(json_obj)):
+#     for i in range(len(json)):
 #         for m in range(len(keyList)):
-#             if str(json_obj[i]["key"]) == str(keyList[m]):
-#                 FinalTeamList.append(str(json_obj[i]["team_number"]) + " - " + str(json_obj[i]["nickname"]))
+#             if str(json[i]["key"]) == str(keyList[m]):
+#                 FinalTeamList.append(str(json[i]["team_number"]) + " - " + str(json[i]["nickname"]))
 #     return FinalTeamList;
 #
-# alliances = json_obj["alliances"]
+# alliances = json["alliances"]
 # blue = alliances["blue"]
 # red = alliances["red"]
 # blueTeams = blue["team_keys"]
@@ -152,7 +152,7 @@ for i in range(len(json_obj)):
 # askFotTeamsInDe1 = '/event/2019iscmp/teams'
 # response = requests.get(defaultURL + askFotTeamsInDe1, headers = {header: headerKey})
 #
-# json_obj = json.loads(response.content)
+# json = json.loads(response.content)
 #
-# print teamsInQualList(json_obj, blueTeamsKeyList)
-# print teamsInQualList(json_obj, redTeamsKeyList)
+# print teamsInQualList(json, blueTeamsKeyList)
+# print teamsInQualList(json, redTeamsKeyList)

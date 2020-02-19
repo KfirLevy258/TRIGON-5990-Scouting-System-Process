@@ -47,11 +47,11 @@ for i in range(len(json_obj)):
 
 
 # database.collection(u'tournaments').document(u'PreSeason').set({
-#     u'event_key': eventKey + num
+#     u'event_key': eventKey + districtNumber
 # })
-# for i in range(len(json_obj)):
-#     team_number = json_obj[i]["team_number"]
-#     team_name = json_obj[i]["nickname"]
+# for i in range(len(json)):
+#     team_number = json[i]["team_number"]
+#     team_name = json[i]["nickname"]
 #     if team_number<100:
 #         team_number = '00' + str(team_number)
 #     if team_number<1000 and team_number>100:
