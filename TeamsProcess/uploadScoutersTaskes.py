@@ -62,6 +62,9 @@ listOfUsersBlue = [[u'YH7wXhrgkgM2ZeVwqoQ4kH1C87o1', u'bZtYnZv7IOUe9s6xXQ8eG74Cs
 #                 })
 
 for m in range(len(listOfUsersBlue)):
+
+
+
     for k in range(len(listOfUsersBlue[m])):
         # database.collection(u'users').document(listOfUsersRed[m][i]) \
         #     .collection(u'tournaments').document(u'ISRD' + str(num)).set({
