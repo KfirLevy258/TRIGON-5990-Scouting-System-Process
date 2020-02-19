@@ -24,12 +24,12 @@ def get_teams_list(listToGetFrom):
         teamsList.append(listToGetFrom[counter][u'team_number'])
     return teamsList
 
-def get_users_amount():
+def get_users_list():
     listOfUsers = []
     scouters = database.collection(u'users').where(u'activeScouter', u'==', True).stream()
     for scouter in scouters:
-        listOfUsers.append(scouter.to_dict()[u'name'])
-    return len(listOfUsers)
+        listOfUsers.append(scouter.to_dict())
+    return listOfUsers
 
 def get_quals_data(listToGetFrom):
     listOfQuals = []
@@ -67,10 +67,16 @@ district_number = raw_input('enter ditrict number \n')
 #
 # print (len(teamList) / float(get_users_amount())) # teams for each scouter
 
+scouters = get_users_list()
+print scouters
 json = get_api_data(district_number, "/matches/simple")
 matches = get_quals_data(json)
 
-
+# firstShift = True
+# for i in range(len(matches)):
+#     for m in range(len(scouters/2)):
+#         if firstShift:
+#             print
 # for m in range(len(listOfUsersBlue)):
 #
 #

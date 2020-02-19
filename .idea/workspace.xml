@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="531c528d-3be0-4591-8dd7-24033742488c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/kfir.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TeamsProcess/resetDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/TeamsProcess/resetDatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TeamsProcess/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/TeamsProcess/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TeamsProcess/uploadScoutersTaskes.py" beforeDir="false" afterPath="$PROJECT_DIR$/TeamsProcess/uploadScoutersTaskes.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -139,6 +136,14 @@
       <option name="presentableId" value="Default" />
       <updated>1575743054511</updated>
     </task>
+    <task id="LOCAL-00001" summary="get all matches">
+      <created>1582145503361</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582145503361</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,5 +156,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="get all matches" />
+    <option name="LAST_COMMIT_MESSAGE" value="get all matches" />
   </component>
 </project>
